@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, description, stage, industry, company, challenge, solution, resultMetric, faqs } = entry.data;
+const { title, description, stage, industry, challenge, solution, resultMetric, faqs } = entry.data;
 
 const jsonLd = [
   {
@@ -51,6 +51,7 @@ const jsonLd = [
       <a href="/case-studies" class="post__back">← All case studies</a>
 
       <div class="post__tags">
+        <span class="tag tag--example">Example Engagement</span>
         <span class="tag tag--stage">{stage}</span>
         <span class="tag">{industry}</span>
       </div>
@@ -92,7 +93,7 @@ const jsonLd = [
       <div class="post__cta">
         <div>
           <h3>Working on something similar?</h3>
-          <p>Tell us about {company ? 'your company' : 'your stage'} and what's next.</p>
+          <p>Tell us about your stage and what's next.</p>
         </div>
         <a href="/#contact" class="btn">Book a Call</a>
       </div>
@@ -133,6 +134,11 @@ const jsonLd = [
   .tag--stage {
     background: var(--color-accent-tint);
     color: var(--color-accent);
+  }
+
+  .tag--example {
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
   }
 
   h1 {

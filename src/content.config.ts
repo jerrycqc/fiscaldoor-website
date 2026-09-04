@@ -7,7 +7,6 @@ const caseStudies = defineCollection({
     title: z.string(),
     description: z.string(),
     stage: z.string(),
-    company: z.string(),
     industry: z.string(),
     challenge: z.string(),
     solution: z.string(),
