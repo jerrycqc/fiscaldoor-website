@@ -4,8 +4,8 @@ export const site = {
   url: 'https://fiscaldoor.com',
   tagline: 'The door to your next round.',
   description:
-    'FiscalDoor is a fractional CFO practice for venture-backed B2B companies moving from Series A through Series B to Pre-IPO. We build the financial model, valuation posture, and board reporting that survive real investor diligence.',
-  eyebrow: 'Fractional CFO for Series A → B → Pre-IPO',
+    'FiscalDoor is a fractional CFO practice for venture-backed B2B companies moving from Series A and B through later growth rounds to Pre-IPO. We build the financial model, valuation posture, and board reporting that survive real investor diligence.',
+  eyebrow: 'Fractional CFO for Series A → Pre-IPO',
   contactEmail: 'hello@fiscaldoor.com',
 } as const;
 
@@ -80,14 +80,14 @@ export const services = [
 
 export const stages = [
   {
-    tag: 'Series A',
+    tag: 'Series A/B',
     title: 'Prove the model',
-    desc: 'Financial hygiene and a first real forecast for a company that just closed, or is closing, its first institutional round. The goal is a model and a board package that survive the first real board meeting.',
+    desc: 'Financial hygiene and a first real forecast for a company that just closed, or is closing, its first institutional round, then the reporting discipline to carry that model cleanly through the second. The goal is a model and a board package that survive real board meetings, not just the first one.',
   },
   {
-    tag: 'Series B',
+    tag: 'Series C+',
     title: 'Scale the metrics that matter',
-    desc: 'Board reporting rigor and a sharper unit-economics story for a company scaling past its first round, now answering to a larger and more sophisticated investor base.',
+    desc: 'Board reporting rigor and a sharper unit-economics story for a company scaling through Series C and later growth rounds, now answering to a larger and more sophisticated investor base.',
   },
   {
     tag: 'Pre-IPO',
@@ -113,10 +113,11 @@ export const fitCriteria = {
 
 export const pricingTiers = [
   {
-    name: 'Series A',
+    name: 'Early Stage',
+    stageLabel: 'Series A/B',
     price: '$6,500',
     period: '/mo',
-    desc: 'Financial hygiene and a first real forecast for a company that just closed, or is closing, its first institutional round.',
+    desc: 'Financial hygiene and a first real forecast for a company that just closed, or is closing, its Series A or B institutional round.',
     features: [
       'Investor-grade 3-statement model',
       'Monthly close and board package',
@@ -126,12 +127,13 @@ export const pricingTiers = [
     featured: false,
   },
   {
-    name: 'Series B',
+    name: 'Growth Stage',
+    stageLabel: 'Series C+',
     price: '$9,500',
     period: '/mo',
-    desc: 'Board-grade reporting and dedicated fundraise support for a company scaling past its first institutional round.',
+    desc: 'Board-grade reporting and dedicated fundraise support for a company scaling through Series C and later growth rounds.',
     features: [
-      'Everything in Series A, plus:',
+      'Everything in Early Stage, plus:',
       'Driver-based forecasting with scenario planning',
       'Quarterly investor update drafting',
       '409A coordination',
@@ -141,11 +143,12 @@ export const pricingTiers = [
   },
   {
     name: 'Pre-IPO',
+    stageLabel: '',
     price: 'Custom',
     period: '',
     desc: 'Audit-readiness and IPO-grade reporting cadence for a company preparing for its next level of scrutiny.',
     features: [
-      'Everything in Series B, plus:',
+      'Everything in Growth Stage, plus:',
       'Audit-readiness review',
       'SOX-lite process design',
       'Banker and analyst-ready reporting',
@@ -157,8 +160,8 @@ export const pricingTiers = [
 
 export const projectTypeOptions = [
   { value: '', label: 'Select one' },
-  { value: 'series-a', label: 'Raising or closed Series A' },
-  { value: 'series-b', label: 'Raising or closed Series B' },
+  { value: 'early-stage', label: 'Raising or closed Series A/B' },
+  { value: 'growth-stage', label: 'Raising or closed Series C or later' },
   { value: 'pre-ipo', label: 'Preparing for Pre-IPO / IPO' },
   { value: 'not-sure', label: "Not sure yet, need a diagnostic" },
 ] as const;

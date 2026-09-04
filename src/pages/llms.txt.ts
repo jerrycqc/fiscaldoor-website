@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
 
 > ${site.description}
 
-${site.name} is a fractional CFO practice for venture-backed B2B companies moving from Series A through Series B to Pre-IPO. Flat monthly retainer by stage, never a percentage of capital raised. B2B only, no consumer or bootstrapped brands.
+${site.name} is a fractional CFO practice for venture-backed B2B companies moving from Series A and B through later growth rounds to Pre-IPO. Flat monthly retainer by stage, never a percentage of capital raised. B2B only, no consumer or bootstrapped brands.
 
 ## Services
 

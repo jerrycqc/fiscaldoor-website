@@ -49,6 +49,7 @@ const faqs = [
         <div class:list={['tier', { 'tier--featured': tier.featured }]}>
           {tier.featured && <span class="tier__badge">Most Common</span>}
           <h2>{tier.name}</h2>
+          {tier.stageLabel && <span class="tier__stage">{tier.stageLabel}</span>}
           <div class="tier__price">
             <span class="tier__amount">{tier.price}</span>
             {tier.period && <span class="tier__period">{tier.period}</span>}
@@ -158,6 +159,17 @@ const faqs = [
     font-weight: 700;
     font-size: 19px;
     margin: 0;
+  }
+
+  .tier__stage {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    margin-top: -10px;
+  }
+
+  .tier--featured .tier__stage {
+    color: color-mix(in srgb, var(--color-accent) 70%, white);
   }
 
   .tier__price {
