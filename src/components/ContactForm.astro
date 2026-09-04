@@ -1,0 +1,299 @@
+---
+import { projectTypeOptions, site } from '../data/site';
+---
+
+<section id="contact" class="contact">
+  <div class="contact__grid">
+    <div class="contact__form-col">
+      <p class="eyebrow">Get Started</p>
+      <h2>Book a call.</h2>
+      <p class="contact__lede">We read every inquiry ourselves and reply within two business days.</p>
+
+      <div class="contact__success" hidden>
+        <div class="contact__success-title">Got it, thank you.</div>
+        <div class="contact__success-body">We'll be in touch within two business days.</div>
+      </div>
+
+      <form
+        class="contact__form"
+        name="inquiry"
+        method="POST"
+        action="/thank-you/"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="inquiry" />
+        <p class="visually-hidden">
+          <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </p>
+
+        <div class="contact__row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+        </div>
+        <div class="contact__row">
+          <div class="field">
+            <label for="company">Company</label>
+            <input id="company" name="company" type="text" />
+          </div>
+          <div class="field">
+            <label for="projectType">Current stage</label>
+            <select id="projectType" name="projectType">
+              {projectTypeOptions.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="message">What's the situation?</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        <button type="submit" class="submit">Send Request</button>
+      </form>
+    </div>
+
+    <div class="contact__info-col">
+      <div class="info-tile">
+        <div class="info-tile__label">Direct Correspondence</div>
+        <a href={`mailto:${site.contactEmail}`} class="info-tile__email">{site.contactEmail}</a>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile__label">What Happens Next</div>
+        <ol class="info-tile__steps">
+          <li>We read your inquiry and reply within two business days.</li>
+          <li>A short call to understand your stage and confirm fit.</li>
+          <li>A scoped proposal, no obligation to continue.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #contact {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .contact__form-col {
+    background: var(--color-surface);
+    padding: 44px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(27px, 3.4vw, 34px);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    color: var(--color-ink);
+  }
+
+  .contact__lede {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    margin: 0 0 32px;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .contact__success {
+    padding: 40px 0;
+  }
+
+  .contact__success-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--color-accent);
+  }
+
+  .contact__success-body {
+    font-size: 15px;
+    color: var(--color-ink-soft);
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact__form[hidden] {
+    display: none;
+  }
+
+  .contact__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-strong);
+    font-size: 15px;
+    font-family: var(--font-body);
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .field textarea {
+    resize: vertical;
+  }
+
+  .submit {
+    margin-top: 8px;
+    padding: 14px 24px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+    font-size: 14.5px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+
+  .submit:hover {
+    background: var(--color-navy-soft);
+  }
+
+  .contact__info-col {
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .info-tile__label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--color-invert-ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .info-tile__email {
+    color: color-mix(in srgb, var(--color-accent) 70%, white);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+    word-break: break-all;
+  }
+
+  .info-tile__steps {
+    margin: 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-invert-ink-soft);
+  }
+
+  .info-tile__steps li::marker {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 780px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact__form-col,
+    .contact__info-col {
+      padding: 28px;
+    }
+
+    .contact__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact__form');
+  const success = document.querySelector<HTMLElement>('.contact__success');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      });
+
+      if (!response.ok) throw new Error(`Form submission failed: ${response.status}`);
+
+      form.hidden = true;
+      success?.removeAttribute('hidden');
+    } catch {
+      // Fall back to a real navigation/submit so the request still reaches Netlify.
+      form.submit();
+    }
+  });
+</script>

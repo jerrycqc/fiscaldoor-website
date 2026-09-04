@@ -1,0 +1,148 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+
+const navLinks = [
+  { href: '/#services', label: 'Services' },
+  { href: '/#stages', label: 'Stages' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/pricing', label: 'Pricing' },
+];
+---
+
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__brand">
+      <Logo class="header__mark" />
+      <span class="header__wordmark">{site.name}</span>
+    </a>
+    <nav class="header__nav" aria-label="Primary">
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <div class="header__actions">
+      <span class="header__badge">
+        <span class="header__badge-dot" aria-hidden="true"></span>
+        31 rounds closed
+      </span>
+      <a href="/#contact" class="header__cta">Book a Call</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  .header__wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 auto;
+  }
+
+  .header__nav a {
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+
+  .header__nav a:hover {
+    background: var(--color-surface-alt);
+    color: var(--color-ink);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .header__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink-soft);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    padding: 7px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .header__badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+
+  .header__cta {
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  .header__cta:hover {
+    background: var(--color-navy-soft);
+  }
+
+  @media (max-width: 900px) {
+    .header__nav {
+      display: none;
+    }
+
+    .header__badge {
+      display: none;
+    }
+
+    .header__inner {
+      padding: 14px 20px;
+    }
+  }
+</style>

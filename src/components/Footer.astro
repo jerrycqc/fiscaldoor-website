@@ -1,0 +1,104 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <Logo class="footer__mark" />
+      <span>{site.name}</span>
+    </div>
+
+    <nav class="footer__links">
+      <a href="/#services">Services</a>
+      <a href="/#stages">Stages</a>
+      <a href="/case-studies">Case Studies</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/privacy">Privacy</a>
+    </nav>
+
+    <div class="footer__contact">
+      <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
+      <span class="footer__copy">© {year} {site.name}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-invert-bg);
+    color: var(--color-invert-ink);
+  }
+
+  .footer__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .footer__mark :global(path) {
+    stroke: var(--color-invert-ink-soft);
+  }
+
+  .footer__mark :global(path[stroke='#0E8F6F']) {
+    stroke: var(--color-accent);
+  }
+
+  .footer__links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .footer__links a {
+    font-size: 13.5px;
+    color: var(--color-invert-ink-soft);
+    text-decoration: none;
+  }
+
+  .footer__links a:hover {
+    color: var(--color-invert-ink);
+  }
+
+  .footer__contact {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13.5px;
+  }
+
+  .footer__contact a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer__copy {
+    color: var(--color-invert-ink-soft);
+  }
+
+  @media (max-width: 780px) {
+    .footer__inner {
+      padding: 28px 20px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

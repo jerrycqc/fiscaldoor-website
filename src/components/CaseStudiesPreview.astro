@@ -1,0 +1,97 @@
+---
+import CaseStudyCard from './CaseStudyCard.astro';
+
+interface CaseStudy {
+  href: string;
+  stage: string;
+  industry: string;
+  title: string;
+  description: string;
+  resultMetric: string;
+}
+
+interface Props {
+  caseStudies: CaseStudy[];
+}
+
+const { caseStudies } = Astro.props;
+---
+
+<section class="preview" id="case-studies">
+  <div class="preview__head">
+    <p class="eyebrow">Case Studies</p>
+    <h2>Three engagements, told in full.</h2>
+    <a href="/case-studies" class="preview__link">See all case studies →</a>
+  </div>
+  <div class="preview__grid">
+    {caseStudies.map((cs) => (
+      <CaseStudyCard
+        href={cs.href}
+        stage={cs.stage}
+        industry={cs.industry}
+        title={cs.title}
+        description={cs.description}
+        resultMetric={cs.resultMetric}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .preview {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .preview__head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 32px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0;
+    width: 100%;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(27px, 3.2vw, 36px);
+    letter-spacing: -0.01em;
+    margin: 8px 0 0;
+    color: var(--color-ink);
+  }
+
+  .preview__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .preview__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .preview {
+      padding: 0 20px;
+    }
+
+    .preview__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,311 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('caseStudies');
+  return caseStudies.map((cs) => ({
+    params: { slug: cs.id },
+    props: { entry: cs },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, stage, industry, company, challenge, solution, resultMetric, faqs } = entry.data;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: entry.data.pubDate.toISOString(),
+    author: { '@type': 'Organization', name: site.name },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={`${title} · ${site.name}`}
+  description={description}
+  path={`/case-studies/${entry.id}/`}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main class="page">
+    <article class="post">
+      <a href="/case-studies" class="post__back">← All case studies</a>
+
+      <div class="post__tags">
+        <span class="tag tag--stage">{stage}</span>
+        <span class="tag">{industry}</span>
+      </div>
+      <h1>{title}</h1>
+      <p class="post__desc">{description}</p>
+
+      <div class="post__callouts">
+        <div class="callout">
+          <span class="callout__label">Challenge</span>
+          <p>{challenge}</p>
+        </div>
+        <div class="callout">
+          <span class="callout__label">What We Did</span>
+          <p>{solution}</p>
+        </div>
+        <div class="callout callout--result">
+          <span class="callout__label">Result</span>
+          <p>{resultMetric}</p>
+        </div>
+      </div>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <div class="post__faq">
+        <p class="eyebrow">Questions</p>
+        <h2>FAQ</h2>
+        <div class="faq__list">
+          {faqs.map((item) => (
+            <details class="faq__item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <div class="post__cta">
+        <div>
+          <h3>Working on something similar?</h3>
+          <p>Tell us about {company ? 'your company' : 'your stage'} and what's next.</p>
+        </div>
+        <a href="/#contact" class="btn">Book a Call</a>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 40px 100px;
+  }
+
+  .post__back {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+  }
+
+  .post__tags {
+    display: flex;
+    gap: 8px;
+    margin: 28px 0 18px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--color-surface-alt);
+    color: var(--color-ink-faint);
+  }
+
+  .tag--stage {
+    background: var(--color-accent-tint);
+    color: var(--color-accent);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.8vw, 38px);
+    letter-spacing: -0.015em;
+    line-height: 1.18;
+    margin: 0 0 16px;
+    color: var(--color-ink);
+  }
+
+  .post__desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    margin: 0 0 36px;
+  }
+
+  .post__callouts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .callout {
+    background: var(--color-surface);
+    padding: 20px;
+  }
+
+  .callout--result {
+    background: var(--color-navy);
+  }
+
+  .callout__label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .callout--result .callout__label {
+    color: var(--color-invert-ink-soft);
+  }
+
+  .callout p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--color-ink);
+  }
+
+  .callout--result p {
+    color: var(--color-invert-ink);
+    font-weight: 600;
+  }
+
+  .prose {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--color-ink);
+  }
+
+  .prose :global(p) {
+    margin: 0 0 20px;
+    color: var(--color-ink-soft);
+  }
+
+  .prose :global(strong) {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+
+  .post__faq {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 12px;
+  }
+
+  .post__faq h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0 0 22px;
+    color: var(--color-ink);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq__item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+  }
+
+  .faq__item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--color-ink);
+  }
+
+  .faq__item p {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  .post__cta {
+    margin-top: 48px;
+    padding: 30px;
+    border-radius: var(--radius-md);
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .post__cta h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 6px;
+  }
+
+  .post__cta p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-invert-ink-soft);
+  }
+
+  .btn {
+    background: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .page {
+      padding: 40px 20px 80px;
+    }
+
+    .post__callouts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

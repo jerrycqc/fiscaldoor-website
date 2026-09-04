@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import { site } from '../../data/site';
+
+const caseStudies = (await getCollection('caseStudies')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout
+  title={`Case Studies · ${site.name}`}
+  description="Real B2B fractional CFO engagements across Series A, Series B, and Pre-IPO companies, with the challenge, the work, and the result."
+  path="/case-studies/"
+>
+  <Header />
+  <main class="page">
+    <div class="intro">
+      <p class="eyebrow">Case Studies</p>
+      <h1>Three engagements, told in full.</h1>
+      <p class="intro__lede">
+        Real B2B venture-backed clients, across different stages and industries. No consumer brands.
+      </p>
+    </div>
+    <div class="grid">
+      {caseStudies.map((cs) => (
+        <CaseStudyCard
+          href={`/case-studies/${cs.id}/`}
+          stage={cs.data.stage}
+          industry={cs.data.industry}
+          title={cs.data.title}
+          description={cs.data.description}
+          resultMetric={cs.data.resultMetric}
+        />
+      ))}
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 56px 40px 100px;
+  }
+
+  .intro {
+    max-width: 680px;
+    margin-bottom: 44px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 42px);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: var(--color-ink);
+  }
+
+  .intro__lede {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .page {
+      padding: 40px 20px 80px;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

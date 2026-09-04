@@ -1,0 +1,80 @@
+---
+---
+
+<section class="manifesto">
+  <div class="manifesto__card">
+    <p class="manifesto__eyebrow">Why Fractional</p>
+    <h2>
+      A full-time CFO is a <em>Series C</em> hire.
+      A fractional one is what gets you there.
+    </h2>
+    <p class="manifesto__body">
+      Most Series A and B companies don't need, and can't yet afford, a full-time finance executive.
+      What they need is someone who has closed rounds before, sitting in the room for the two weeks a
+      quarter that actually matter, and building the model and reporting rhythm that make the other
+      eleven weeks run themselves.
+    </p>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .manifesto__card {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 56px 64px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .manifesto__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 20px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(24px, 3.2vw, 32px);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    color: var(--color-ink);
+  }
+
+  h2 em {
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  .manifesto__body {
+    margin: 0 auto;
+    max-width: 58ch;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .manifesto {
+      padding: 0 20px;
+    }
+
+    .manifesto__card {
+      padding: 40px 26px;
+    }
+  }
+</style>

@@ -1,0 +1,159 @@
+---
+import { services } from '../data/site';
+---
+
+<section class="services" id="services">
+  <div class="services__head">
+    <p class="eyebrow">What We Do</p>
+    <h2>Four services. Each one earns its place on a board agenda.</h2>
+  </div>
+  <div class="services__grid">
+    {services.map((svc) => (
+      <article class="service">
+        <div class="service__head">
+          <span class="service__number">{svc.number}</span>
+          <div>
+            <h3>{svc.title}</h3>
+            <p class="service__summary">{svc.summary}</p>
+          </div>
+        </div>
+        <p class="service__body">{svc.body}</p>
+        <ul class="service__included">
+          {svc.included.map((item) => (
+            <li>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2.5 7.2L5.4 10L11.5 4" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .services {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .services__head {
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 14px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(27px, 3.2vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .service {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .service__head {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .service__number {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink-faint);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18.5px;
+    margin: 0 0 6px;
+    color: var(--color-ink);
+    letter-spacing: -0.005em;
+  }
+
+  .service__summary {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+
+  .service__body {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+
+  .service__included {
+    list-style: none;
+    margin: 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service__included li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+
+  .service__included svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  @media (max-width: 860px) {
+    .services {
+      padding: 0 20px;
+    }
+
+    .services__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

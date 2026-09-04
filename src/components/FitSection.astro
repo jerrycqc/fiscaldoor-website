@@ -1,0 +1,188 @@
+---
+import { fitCriteria } from '../data/site';
+---
+
+<section class="fit">
+  <div class="fit__sheet">
+    <div class="fit__sheet-head">
+      <div>
+        <p class="fit__doc-label">Engagement Diligence</p>
+        <h2>Client Fit Checklist</h2>
+      </div>
+      <span class="fit__ref">REF. FD-01</span>
+    </div>
+    <div class="fit__body">
+      <div class="fit__col">
+        <p class="fit__col-title fit__col-title--good">Proceed</p>
+        <ul>
+          {fitCriteria.good.map((item) => (
+            <li>
+              <span class="fit__badge fit__badge--good" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none">
+                  <path d="M2.5 7.2L5.4 10L11.5 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="fit__col">
+        <p class="fit__col-title fit__col-title--bad">Decline</p>
+        <ul>
+          {fitCriteria.bad.map((item) => (
+            <li>
+              <span class="fit__badge fit__badge--bad" aria-hidden="true">
+                <svg width="9" height="9" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 3L11 11M11 3L3 11" stroke="white" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fit {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .fit__sheet {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .fit__sheet-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 26px 32px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-alt);
+  }
+
+  .fit__doc-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink-faint);
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .fit__sheet-head h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .fit__ref {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink-faint);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  .fit__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fit__col {
+    padding: 28px 32px;
+  }
+
+  .fit__col:first-child {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .fit__col-title {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  .fit__col-title--good {
+    color: var(--color-accent);
+  }
+
+  .fit__col-title--bad {
+    color: var(--color-negative);
+  }
+
+  .fit__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fit__col li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--color-ink);
+  }
+
+  .fit__badge {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .fit__badge--good {
+    background: var(--color-accent);
+  }
+
+  .fit__badge--bad {
+    background: var(--color-negative);
+  }
+
+  @media (max-width: 780px) {
+    .fit {
+      padding: 0 20px;
+    }
+
+    .fit__sheet-head {
+      padding: 22px 22px;
+    }
+
+    .fit__body {
+      grid-template-columns: 1fr;
+    }
+
+    .fit__col:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .fit__col {
+      padding: 22px;
+    }
+  }
+</style>

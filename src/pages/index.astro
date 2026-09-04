@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import StagesSection from '../components/StagesSection.astro';
+import FitSection from '../components/FitSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import CaseStudiesPreview from '../components/CaseStudiesPreview.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site, services } from '../data/site';
+
+const allCaseStudies = await getCollection('caseStudies');
+const latestCaseStudies = allCaseStudies
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((cs) => ({
+    href: `/case-studies/${cs.id}/`,
+    stage: cs.data.stage,
+    industry: cs.data.industry,
+    title: cs.data.title,
+    description: cs.data.description,
+    resultMetric: cs.data.resultMetric,
+  }));
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    areaServed: 'Worldwide',
+    makesOffer: services.map((svc) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Service',
+        name: svc.title,
+        description: svc.summary,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    url: site.url,
+  },
+];
+---
+
+<BaseLayout
+  title={`${site.name} · Fractional CFO for Series A → B → Pre-IPO`}
+  description={site.description}
+  path="/"
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main class="page">
+    <Hero />
+    <ServicesSection />
+    <StagesSection />
+    <FitSection />
+    <AboutSection />
+    <CaseStudiesPreview caseStudies={latestCaseStudies} />
+    <ContactForm />
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 84px;
+    padding-bottom: 40px;
+  }
+</style>

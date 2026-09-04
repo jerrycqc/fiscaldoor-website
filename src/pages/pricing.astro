@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, pricingTiers } from '../data/site';
+
+const faqs = [
+  {
+    question: 'Is this a percentage of funds raised?',
+    answer:
+      'No. We charge a flat monthly retainer by stage, never a percentage of capital raised. A success fee on a raise creates an incentive to push you toward a round that may not be the right one; a flat retainer keeps the advice aligned with your business, not the transaction.',
+  },
+  {
+    question: 'What happens between fundraises?',
+    answer:
+      "Most of the engagement happens between raises, not during them: monthly close, board reporting, forecasting, and the financial hygiene that makes the next raise faster when it comes. The fundraise-specific work — data room, mock diligence, investor materials — ramps up only when you're actually going to market.",
+  },
+  {
+    question: 'Is there a minimum commitment?',
+    answer:
+      'Yes, three months. Financial modeling and board reporting only prove their value over a few cycles; a one-month engagement rarely gives either of us a fair read on fit.',
+  },
+  {
+    question: 'Do you work with pre-seed or bootstrapped companies?',
+    answer:
+      "Not currently. We work with B2B companies that have raised, or are actively raising, a Series A or later institutional round. Earlier-stage or non-venture-backed companies are better served by a bookkeeper or a part-time controller.",
+  },
+];
+---
+
+<BaseLayout
+  title={`Pricing · ${site.name}`}
+  description="Flat monthly retainers by funding stage, from Series A through Pre-IPO. No percentage of capital raised."
+  path="/pricing/"
+>
+  <Header />
+  <main class="page">
+    <div class="intro">
+      <p class="eyebrow">Pricing</p>
+      <h1>One retainer, by stage. No spend-based fee.</h1>
+      <p class="intro__lede">
+        We charge a flat monthly retainer, never a percentage of capital raised. Every tier includes a
+        model, a board package, and direct access — the scope grows with your stage.
+      </p>
+    </div>
+
+    <div class="tiers">
+      {pricingTiers.map((tier) => (
+        <div class:list={['tier', { 'tier--featured': tier.featured }]}>
+          {tier.featured && <span class="tier__badge">Most Common</span>}
+          <h2>{tier.name}</h2>
+          <div class="tier__price">
+            <span class="tier__amount">{tier.price}</span>
+            {tier.period && <span class="tier__period">{tier.period}</span>}
+          </div>
+          <p class="tier__desc">{tier.desc}</p>
+          <ul class="tier__features">
+            {tier.features.map((f) => <li>{f}</li>)}
+          </ul>
+          <a href="/#contact" class="tier__cta">Book a Call</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="faq">
+      <p class="eyebrow">Questions</p>
+      <h2>Pricing FAQ</h2>
+      <div class="faq__list">
+        {faqs.map((item) => (
+          <details class="faq__item">
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 56px 40px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .intro {
+    max-width: 680px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 42px);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    color: var(--color-ink);
+  }
+
+  .intro__lede {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .tier {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 30px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .tier--featured {
+    border-color: var(--color-navy);
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+  }
+
+  .tier__badge {
+    position: absolute;
+    top: -12px;
+    left: 26px;
+    background: var(--color-accent);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .tier h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    margin: 0;
+  }
+
+  .tier__price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .tier__amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .tier__period {
+    font-size: 14px;
+    color: var(--color-ink-faint);
+  }
+
+  .tier--featured .tier__period {
+    color: var(--color-invert-ink-soft);
+  }
+
+  .tier__desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .tier--featured .tier__desc {
+    color: var(--color-invert-ink-soft);
+  }
+
+  .tier__features {
+    list-style: none;
+    margin: 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .tier--featured .tier__features {
+    border-color: var(--color-invert-border);
+  }
+
+  .tier__cta {
+    text-align: center;
+    text-decoration: none;
+    background: var(--color-navy);
+    color: var(--color-invert-ink);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .tier--featured .tier__cta {
+    background: var(--color-accent);
+  }
+
+  .faq {
+    max-width: 760px;
+  }
+
+  .faq h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin: 8px 0 24px;
+    color: var(--color-ink);
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq__item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+  }
+
+  .faq__item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--color-ink);
+  }
+
+  .faq__item p {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 860px) {
+    .page {
+      padding: 40px 20px 80px;
+    }
+
+    .tiers {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

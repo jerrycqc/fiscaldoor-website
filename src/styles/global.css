@@ -1,0 +1,81 @@
+/* FiscalDoor design tokens: precision fintech */
+:root {
+  /* Cool, near-white paper with a faint blue cast, not stone, not amber */
+  --color-bg: oklch(99% 0.003 240);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-alt: oklch(96% 0.006 240);
+  --color-border: oklch(89% 0.008 240);
+  --color-border-strong: oklch(76% 0.012 240);
+
+  /* Deep navy ink */
+  --color-ink: oklch(22% 0.035 260);
+  --color-ink-soft: oklch(40% 0.03 258);
+  --color-ink-faint: oklch(58% 0.02 255);
+
+  --color-white: oklch(100% 0 0);
+
+  /* Deep navy, used for nav/structure */
+  --color-navy: oklch(22% 0.035 260);
+  --color-navy-soft: oklch(30% 0.045 258);
+
+  /* Emerald accent, used for metrics, charts, and CTAs */
+  --color-accent: #0e8f6f;
+  --color-accent-hover: color-mix(in srgb, var(--color-accent) 84%, black);
+  --color-accent-tint: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+
+  /* Muted red, used only for "not a fit" markers */
+  --color-negative: #b3453f;
+
+  /* Deep navy band, used only for the footer */
+  --color-invert-bg: oklch(18% 0.035 260);
+  --color-invert-ink: oklch(97% 0.005 240);
+  --color-invert-ink-soft: color-mix(in srgb, var(--color-invert-ink) 66%, transparent);
+  --color-invert-border: color-mix(in srgb, var(--color-invert-ink) 20%, transparent);
+
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --max-width: 1200px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  width: 100%;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: var(--font-body);
+}

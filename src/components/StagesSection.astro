@@ -1,0 +1,133 @@
+---
+import { stages } from '../data/site';
+---
+
+<section class="stages" id="stages">
+  <div class="stages__head">
+    <p class="eyebrow">How Engagements Evolve</p>
+    <h2>Same firm, three different jobs.</h2>
+    <p class="stages__lede">What we're actually doing for you changes with your stage. Here's the shape of each one.</p>
+  </div>
+  <div class="stages__path">
+    <div class="stages__line" aria-hidden="true"></div>
+    {stages.map((stage) => (
+      <div class="stage">
+        <div class="stage__node" aria-hidden="true"></div>
+        <span class="stage__tag">{stage.tag}</span>
+        <h3>{stage.title}</h3>
+        <p>{stage.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stages {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .stages__head {
+    max-width: 620px;
+    margin-bottom: 52px;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin: 0 0 14px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(27px, 3.2vw, 36px);
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    color: var(--color-ink);
+  }
+
+  .stages__lede {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+
+  .stages__path {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .stages__line {
+    position: absolute;
+    top: 6px;
+    left: calc(16.6% - 1px);
+    right: calc(16.6% - 1px);
+    height: 0;
+    border-top: 1.5px dashed var(--color-border-strong);
+  }
+
+  .stage {
+    position: relative;
+    padding-top: 32px;
+  }
+
+  .stage__node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px var(--color-accent-tint);
+  }
+
+  .stage__tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent);
+    background: var(--color-accent-tint);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .stage h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    margin: 0 0 10px;
+    color: var(--color-ink);
+  }
+
+  .stage p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 780px) {
+    .stages {
+      padding: 0 20px;
+    }
+
+    .stages__path {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .stages__line {
+      display: none;
+    }
+  }
+</style>
