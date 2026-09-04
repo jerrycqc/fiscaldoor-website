@@ -47,7 +47,6 @@ const faqs = [
     <div class="tiers">
       {pricingTiers.map((tier) => (
         <div class:list={['tier', { 'tier--featured': tier.featured }]}>
-          {tier.featured && <span class="tier__badge">Most Common</span>}
           <h2>{tier.name}</h2>
           {tier.stageLabel && <span class="tier__stage">{tier.stageLabel}</span>}
           <div class="tier__price">
@@ -139,19 +138,6 @@ const faqs = [
     border-color: var(--color-navy);
     background: var(--color-navy);
     color: var(--color-invert-ink);
-  }
-
-  .tier__badge {
-    position: absolute;
-    top: -12px;
-    left: 26px;
-    background: var(--color-accent);
-    color: white;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 999px;
   }
 
   .tier h2 {
